@@ -1,0 +1,21 @@
+Modeling and Automated Containment of Worms
+
+ITJNS02
+
+1.Install jdk1.5.
+
+2.Set environmental variable for java.
+
+3.For Multiple System
+	A.  Inside Host1, Enter the address of Host2,Host3,Host4 in the text files Host2,Host3,Host4 respectively.
+	B.  Inside Host2, Enter the address of Host1,Host3,Host4 in the text files Host1,Host3,Host4 respectively.
+	C.  Inside Host3, Enter the address of Host1,Host2,Host4 in the text files Host1,Host2,Host4 respectively.
+	D.  Inside Host4, Enter the address of Host1,Host2,Host3 in the text files Host1,Host2,Host3 respectively.
+
+
+4.Run the batch files in the following order
+
+	a.Host1.bat
+	b.Host2.bat
+	c.Host3.bat
+	d.Host4.bat

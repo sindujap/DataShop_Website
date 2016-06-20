@@ -1,0 +1,18 @@
+The Gil bert model (1-st order Markov chain model) and the single-multiplexer 
+model are two frequently used models in the study of packet-loss processes in communicati
+on networks. In this paper we investigate the accuracy of the Gilbert model, and higher-o
+rder Markov chain extended Gilbert models, 
+in characterizing the packet-loss process associated with a transport network modeled 
+in terms of a single-multiplexer. More specifically, we quantitatively compare the packet-
+loss statistics predicted by the Gilbert models
+ with those predicted by an exact queueing analysis of the single-multiplexer model. 
+This topic is important since low-complexity Gilbert models are frequently used to 
+characterize end-to-end network packet-loss behavior. 
+On the other hand, network congestion behavior is often characterized in terms of a
+ single bottleneck node modeled as a multiplexer. It is of some interest then to est
+ablish the relative accuracy of Gilbert models in predicting the packet-loss behavior
+ on even such a simplified network model. We demonstrate that the Gilbert models have
+ some serious deficiencies in accurately predicting the packet-loss statistics of the 
+single-multiplexer model. The results are shown to have some serious consequences for 
+the performance evaluation of forward error correction (FEC) coding schemes used to comb
+at the effects of packet losses due to network buffer overflows.

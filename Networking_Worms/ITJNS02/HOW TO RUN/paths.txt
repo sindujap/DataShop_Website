@@ -1,0 +1,16 @@
+path:
+----
+Right mouse click on Mycomputer->properties-->advanced(tab)-->Environment variables-->
+NEW(button):
+
+variable name:  path
+variable value: c:\Program Files\Java\jdk1.6.0_02\bin
+
+
+Classpath:
+---------
+Right mouse click on Mycomputer->properties-->advanced(tab)-->Environment variables-->
+NEW(button):
+
+variable name:  classpath
+variable value: .;c:\Program Files\Java\jdk1.6.0_02\jre\lib\rt.jar

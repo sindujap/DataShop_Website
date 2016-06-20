@@ -1,0 +1,25 @@
+// Decompiled by DJ v3.5.5.77 Copyright 2003 Atanas Neshkov  Date: 3/31/2002 3:41:16 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Host1.java
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+final class Host1$5
+    implements ActionListener
+{
+
+    public void actionPerformed(ActionEvent actionevent)
+    {
+        Host1.access$400(Host1.this, actionevent);
+    }
+
+    final Host1 this$0;
+
+    Host1$5()
+    {
+        this$0 = Host1.this;
+        super();
+    }
+}

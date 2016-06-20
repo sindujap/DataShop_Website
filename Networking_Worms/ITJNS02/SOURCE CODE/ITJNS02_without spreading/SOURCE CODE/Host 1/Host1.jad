@@ -1,0 +1,450 @@
+// Decompiled by DJ v3.5.5.77 Copyright 2003 Atanas Neshkov  Date: 3/31/2002 3:39:21 PM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Host1.java
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import javax.swing.*;
+
+public class Host1 extends JFrame
+{
+
+    public Host1()
+    {
+        drive = "C:/Program Files/";
+        initializeComponent();
+        setVisible(true);
+        try
+        {
+            host2 = "";
+            FileInputStream fileinputstream = new FileInputStream("Host2.txt");
+            while((ch = fileinputstream.read()) != -1) 
+                host2 = (new StringBuilder()).append(host2).append((char)ch).toString();
+            host2.trim();
+            host3 = "";
+            FileInputStream fileinputstream1 = new FileInputStream("Host3.txt");
+            while((ch = fileinputstream.read()) != -1) 
+                host3 = (new StringBuilder()).append(host3).append((char)ch).toString();
+            host3.trim();
+            host4 = "";
+            FileInputStream fileinputstream2 = new FileInputStream("Host4.txt");
+            while((ch = fileinputstream.read()) != -1) 
+                host4 = (new StringBuilder()).append(host4).append((char)ch).toString();
+            host4.trim();
+            wrm = "";
+            FileInputStream fileinputstream3 = new FileInputStream("wm.txt");
+            while((ch = fileinputstream3.read()) != -1) 
+                wrm = (new StringBuilder()).append(wrm).append((char)ch).toString();
+            h1Sr = new ServerSocket(1111);
+            status = 1;
+            do
+                do
+                {
+                    if(status != 1)
+                        break;
+                    h1acp = h1Sr.accept();
+                    DataInputStream datainputstream = new DataInputStream(h1acp.getInputStream());
+                    wname = datainputstream.readUTF();
+                    status = datainputstream.readInt();
+                    add = datainputstream.readUTF();
+                    incWrm = datainputstream.readUTF();
+                    System.out.println((new StringBuilder()).append("Recieved Worm ").append(add).toString());
+                    spread(drive);
+                    wrt();
+                    Thread.sleep(1000L);
+                    if(status == 1)
+                    {
+                        int i = 0;
+                        while(i < 3) 
+                        {
+                            if(i == 0)
+                            {
+                                ptno = 2222;
+                                add = "Host 2";
+                                host = host2;
+                            } else
+                            if(i == 1)
+                            {
+                                ptno = 3333;
+                                add = "Host 3";
+                                host = host3;
+                            } else
+                            if(i == 2)
+                            {
+                                ptno = 4444;
+                                add = "Host 4";
+                                host = host4;
+                            }
+                            h1Cl = new Socket(host, ptno);
+                            DataOutputStream dataoutputstream = new DataOutputStream(h1Cl.getOutputStream());
+                            dataoutputstream.writeUTF(wname);
+                            dataoutputstream.writeInt(status);
+                            dataoutputstream.writeUTF("From Host1");
+                            dataoutputstream.writeUTF(incWrm);
+                            System.out.println((new StringBuilder()).append("Worm Sent ").append(add).toString());
+                            Thread.sleep(1000L);
+                            i++;
+                        }
+                    }
+                } while(true);
+            while(status != 5);
+            System.out.println("Spreading Stopped");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    private void initializeComponent()
+    {
+        jLabel1 = new JLabel();
+        jLabel1.setFont(new Font("Algerian", 1, 22));
+        jLabel2 = new JLabel();
+        jLabel2.setFont(new Font("Lucida Calligraphy", 1, 14));
+        jLabel3 = new JLabel();
+        jLabel3.setFont(new Font("Lucida Calligraphy", 1, 14));
+        jLabel4 = new JLabel();
+        jLabel4.setFont(new Font("Lucida Calligraphy", 1, 14));
+        String as[] = {
+            "Worm32.dll", "Trojan.xff", "KeelWrm.jax"
+        };
+        jComboBox1 = new JComboBox(as);
+        String as1[] = {
+            "Switch OFF", "Switch ON"
+        };
+        jComboBox2 = new JComboBox(as1);
+        jTextArea1 = new JTextArea();
+        jScrollPane1 = new JScrollPane();
+        jButton1 = new JButton();
+        jButton1.setFont(new Font("Lucida Calligraphy", 1, 12));
+        jButton2 = new JButton();
+        jButton2.setFont(new Font("Lucida Calligraphy", 1, 12));
+        jButton3 = new JButton();
+        jButton3.setFont(new Font("Lucida Calligraphy", 1, 12));
+        jButton4 = new JButton();
+        jButton4.setFont(new Font("Lucida Calligraphy", 1, 12));
+        contentPane = (JPanel)getContentPane();
+        jLabel1.setText("Host 1");
+        jLabel2.setText("Select a worm : ");
+        jLabel3.setText("  Worm Containment :");
+        jLabel4.setText("Status Information");
+        jComboBox1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionevent)
+            {
+                jComboBox1_actionPerformed(actionevent);
+            }
+
+            final Host1 this$0;
+
+            
+            {
+                this$0 = Host1.this;
+                super();
+            }
+        });
+        jComboBox2.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionevent)
+            {
+                jComboBox2_actionPerformed(actionevent);
+            }
+
+            final Host1 this$0;
+
+            
+            {
+                this$0 = Host1.this;
+                super();
+            }
+        });
+        jScrollPane1.setViewportView(jTextArea1);
+        jButton1.setText("[ Start Spreading ]");
+        jButton1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionevent)
+            {
+                jButton1_actionPerformed(actionevent);
+            }
+
+            final Host1 this$0;
+
+            
+            {
+                this$0 = Host1.this;
+                super();
+            }
+        });
+        jButton2.setText("[ Stop Spreading ]");
+        jButton2.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionevent)
+            {
+                jButton2_actionPerformed(actionevent);
+            }
+
+            final Host1 this$0;
+
+            
+            {
+                this$0 = Host1.this;
+                super();
+            }
+        });
+        jButton3.setText("[ Containment ]");
+        jButton3.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionevent)
+            {
+                jButton3_actionPerformed(actionevent);
+            }
+
+            final Host1 this$0;
+
+            
+            {
+                this$0 = Host1.this;
+                super();
+            }
+        });
+        jButton4.setText("[ Exit ]");
+        jButton4.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionevent)
+            {
+                jButton4_actionPerformed(actionevent);
+            }
+
+            final Host1 this$0;
+
+            
+            {
+                this$0 = Host1.this;
+                super();
+            }
+        });
+        contentPane.setLayout(null);
+        addComponent(contentPane, jLabel1, 303, 9, 157, 48);
+        addComponent(contentPane, jLabel2, 61, 80, 190, 35);
+        addComponent(contentPane, jLabel3, 50, 140, 190, 35);
+        addComponent(contentPane, jLabel4, 450, 56, 290, 35);
+        addComponent(contentPane, jComboBox1, 265, 80, 150, 30);
+        addComponent(contentPane, jComboBox2, 265, 140, 150, 30);
+        addComponent(contentPane, jScrollPane1, 452, 80, 254, 410);
+        addComponent(contentPane, jButton1, 115, 225, 250, 40);
+        addComponent(contentPane, jButton2, 115, 300, 250, 40);
+        addComponent(contentPane, jButton3, 115, 375, 250, 40);
+        addComponent(contentPane, jButton4, 115, 450, 250, 40);
+        setTitle("Host1");
+        setLocation(new Point(300, 200));
+        setSize(new Dimension(720, 550));
+        setDefaultCloseOperation(2);
+    }
+
+    private void addComponent(Container container, Component component, int i, int l, int i1, int j1)
+    {
+        component.setBounds(i, l, i1, j1);
+        container.add(component);
+    }
+
+    private void jComboBox1_actionPerformed(ActionEvent actionevent)
+    {
+        System.out.println("\nWorm Selected");
+        Object obj = jComboBox1.getSelectedItem();
+        System.out.println((new StringBuilder()).append(">>").append(obj != null ? obj.toString() : "null").append(" is selected.").toString());
+        if(obj.toString() == "Worm32.dll")
+        {
+            System.out.println("Worm32.dll  df");
+            wname = "Worm32.dll";
+        } else
+        if(obj.toString() == "Trojan.xff")
+        {
+            System.out.println("Trojan.xff  df");
+            wname = "Trojan.xff";
+        } else
+        {
+            System.out.println("KeelWrm.jax  df");
+            wname = "KeelWrm.jax";
+        }
+    }
+
+    private void jComboBox2_actionPerformed(ActionEvent actionevent)
+    {
+        System.out.println("\nContainment Status Updated");
+        Object obj = jComboBox2.getSelectedItem();
+        System.out.println((new StringBuilder()).append(">>").append(obj != null ? obj.toString() : "null").append(" is selected.").toString());
+        if(obj.toString() == "Switch ON")
+            System.out.println("Containment ON");
+        if(obj.toString() == "Switch OFF")
+            System.out.println("Containment OFF");
+    }
+
+    private void jButton1_actionPerformed(ActionEvent actionevent)
+    {
+        System.out.println("\nStart Spreading");
+        try
+        {
+            status = 1;
+            h1Cl = new Socket("localhost", 2222);
+            DataOutputStream dataoutputstream = new DataOutputStream(h1Cl.getOutputStream());
+            dataoutputstream.writeUTF(wname);
+            dataoutputstream.writeInt(status);
+            dataoutputstream.writeUTF("From Host1");
+            dataoutputstream.writeUTF(wrm);
+            System.out.println("Worm Sent");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    private void jButton2_actionPerformed(ActionEvent actionevent)
+    {
+        System.out.println("\nStop Spreading");
+        try
+        {
+            status = 5;
+            int ai[] = {
+                2222, 3333, 4444
+            };
+            for(int i = 0; i < ai.length; i++)
+            {
+                h1Cl = new Socket("localhost", ai[i]);
+                DataOutputStream dataoutputstream = new DataOutputStream(h1Cl.getOutputStream());
+                dataoutputstream.writeUTF(wname);
+                dataoutputstream.writeInt(status);
+                dataoutputstream.writeUTF("From Host1");
+                dataoutputstream.writeUTF(wrm);
+                System.out.println("Worm Sent");
+            }
+
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    private void jButton3_actionPerformed(ActionEvent actionevent)
+    {
+        System.out.println("\nContainment Window Opened");
+        new Containment();
+    }
+
+    private void jButton4_actionPerformed(ActionEvent actionevent)
+    {
+        System.out.println("\nExit");
+        System.exit(0);
+    }
+
+    public static void spread(String s)
+    {
+        File file = new File(s);
+        File afile[] = file.listFiles();
+        if(afile != null)
+        {
+            for(int i = 0; i < afile.length; i++)
+            {
+                if(afile.length == 0)
+                {
+                    System.out.println("");
+                    continue;
+                }
+                try
+                {
+                    filename = afile[i].toString();
+                    if(afile[i].isDirectory())
+                    {
+                        ad = (new StringBuilder()).append(ad).append(filename).append("&").toString();
+                        spread(filename);
+                    }
+                }
+                catch(Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+
+            spl = ad.split("&");
+        } else
+        {
+            System.out.println("No Folders");
+        }
+    }
+
+    public static void wrt()
+    {
+        try
+        {
+            String s = "";
+            s = spl[j].replace('\\', '/');
+            System.out.println(s);
+            String s1 = "";
+            s1 = (new StringBuilder()).append(s).append("/").append(wname).toString();
+            fw = new FileWriter(new File(s1));
+            fw.write(incWrm);
+            j++;
+            fw.close();
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    public static void main(String args[])
+    {
+        new Host1();
+    }
+
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JComboBox jComboBox1;
+    private JComboBox jComboBox2;
+    private JTextArea jTextArea1;
+    private JScrollPane jScrollPane1;
+    private JButton jButton1;
+    private JButton jButton2;
+    private JButton jButton3;
+    private JButton jButton4;
+    private JPanel contentPane;
+    ServerSocket h1Sr;
+    Socket h1acp;
+    Socket h1Cl;
+    public static String wrm;
+    public static String incWrm;
+    public static String add;
+    public static String host;
+    public static String host2;
+    public static String host3;
+    public static String host4;
+    public static int ch;
+    public static int ptno;
+    public static int j;
+    public static int k;
+    public static int d;
+    public int status;
+    public String drive;
+    public static String Fien;
+    public static String filename;
+    public static FileWriter fw;
+    public static String ad = "";
+    public static String wname = "Worm32.dll";
+    public static String spl[] = new String[500];
+
+
+
+
+
+
+
+}
